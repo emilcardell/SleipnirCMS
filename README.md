@@ -1,0 +1,4 @@
+SleipnirCMS
+===========
+
+Simple Decentralized CMS
