@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data.js" />
     <Content Include="scripts\angular-nestedSortable.js" />
     <Content Include="styles\demo.css" />
     <Content Include="scripts\demo.js" />
