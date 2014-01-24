@@ -1,0 +1,27 @@
+﻿
+<div ng-show="field.type != 'array' && field.type != 'object'" >
+	 <div>{{field.name}}: <input data-ng-model="field.value"></div>
+</div>
+		  
+<div ng-show="field.type == 'array'">
+	<div class="chapter-title">{{field.name}}:</div>
+	<div><button ng-click="AddRow(field)">Add {{field.objectName}}</button></div>
+	
+	<div ng-model="field.rows" ui-nested-sortable="chaptersOptions">
+		<div data-ng-repeat="row in field.rows" ui-nested-sortable-item>
+			<div ui-nested-sortable-handle>{{field.objectName}}</div>
+			<div ng-model="row">
+				<div ng-repeat="field in row" ng-include="'/templates/demoRenderer.html'" ></div>  
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div ng-show="field.type == 'object'" >
+	<div >{{field.name}}:</div>
+	
+	<div ng-model="field.fields">
+			 <div ng-repeat="field in field.fields" ng-include="'/templates/demoRenderer.html'"></div>  
+		</div>
+</div>

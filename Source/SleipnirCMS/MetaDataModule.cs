@@ -1,23 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Nancy;
+using Nancy.ModelBinding;
+using Raven.Abstractions.Data;
+using Raven.Abstractions.Json;
+using Raven.Client;
+using Raven.Json.Linq;
 
 namespace SleipnirCMS
 {
 	public class MetaDataModule : NancyModule
 	{
-		public MetaDataModule()
+		public MetaDataModule(IDocumentSession documentSession)
 		{
 			Post["/ContentMetaData/{name}"] = _ =>
 			{
-				var metaData = new ContentMetaData();
-				metaData.Name = "LasseMaja";
-				metaData.Properties.Add(new PropertyInformation() { Name="MainBody", PropertyType = "XHTMLEditor", Description = "Main content body", Required = true});
-				metaData.Properties.Add(new PropertyInformation() { Name = "Title", PropertyType = "string", Description = "Main content body", Required = true });
-				return "NO";
+				var body = new StreamReader(Request.Body).ReadToEnd();
+				
+				var metadata = this.Bind<ContentMetaData>();
+				metadata.Id = Guid.NewGuid().ToString();
+
+				documentSession.Store(metadata);
+				documentSession.SaveChanges();
+
+				return Response.AsJson(new {metadata.Id});
+
 			};
 
 			Get["/ContentMetaData/{name}"] = _ =>
 			{
+
 				return "No";
 			};
 		}
@@ -31,6 +44,7 @@ namespace SleipnirCMS
 		}
 		public string Id { get; set; }
 		public string Name { get; set; }
+		public DateTime Created { get; set; }
 		public List<PropertyInformation> Properties { get; set; }
 	}
 
