@@ -1,0 +1,48 @@
+﻿
+<div ng-show="field.type != 'array' && field.type != 'object'" >
+    
+    <label for="inputEmail3" class="col-sm-2 control-label">{{field.name}}</label>
+    <div class="col-sm-10">
+        <input type="email" class="form-control" data-ng-model="field.value">
+    </div>
+</div>
+		  
+<div ng-show="field.type == 'array'" >
+    <div class="sectionHeader">{{field.name}}</div>
+
+    <div class="col-sm-10">
+        <div class="arrayFrame">
+
+            <div ng-model="field.rows" ui-nested-sortable="arrayOptions" class="highlight">
+                <div data-ng-repeat="row in field.rows" ui-nested-sortable-item class="itemInArray">
+
+                    <div class="arrayItemHeader">
+                        <div ui-nested-sortable-handle><span class="glyphicon glyphicon-align-justify"></span>{{field.objectName}} </div>
+                        <div class="arrayItemActions">
+                            <button type="button" class="btn btn-danger btn-xs" ng-click="DeleteRow(field, row)">Delete</button>
+                        </div>
+                    </div>
+
+                    <div ng-model="row">
+                        <div ng-repeat="field in row" ng-include="'/templates/fieldRenderer.html'" class="form-group"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="arrayActions"><button ng-click="AddRow(field)" class="btn btn-success">Add {{field.objectName}}</button></div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="field.type == 'object'">
+    <div class="sectionHeader">{{field.name}}</div>
+    <div class="col-sm-10">
+        <div class="objectFrame">
+            <div ng-model="field.fields">
+                <div ng-repeat="field in field.fields" ng-include="'/templates/fieldRenderer.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>

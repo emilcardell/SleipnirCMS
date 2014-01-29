@@ -41,7 +41,7 @@
 	{
 		"name": "ListOfCats",
 		"type": "array",
-		"objectName": "Person",
+		"objectName": "Cat",
 		"requiered": true,
 		"defaultValue": "LasseMaja",
 		"fields": [

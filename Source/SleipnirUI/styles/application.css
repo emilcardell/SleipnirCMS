@@ -1,3 +1,37 @@
+body{
+    padding-top: 70px;
+}
+
+.sectionHeader
+{
+    font-weight:bold;
+    width: 16.666666666666664%;
+    float: left;
+    text-align: right;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 7px;
+}
+
+.arrayFrame
+{
+    border-radius: 4px;
+    border: 1px solid #CCC;
+    overflow:hidden;
+    padding: 12px;
+    float: left;
+    width: 100%;
+}
+
+.objectFrame {
+    border-left: 1px solid #CCC;
+    overflow:hidden;
+    padding: 12px 12px 12px 0;
+    float: left;
+    width: 100%;
+}
+
+
 pre {
     border: 1px solid #CCC;
 }
@@ -11,6 +45,28 @@ pre {
 .chapter-title {
     background-color: #687074 !important;
     color: #FFF !important;
+}
+
+.arrayActions
+{
+    padding-top: 14px;
+}
+
+.arrayItemHeader
+{
+    overflow: hidden;
+    border-bottom: 1px solid #999;
+    margin-bottom: 14px;
+}
+
+.arrayItemHeader .glyphicon{
+    margin-right: 5px;
+}
+
+.arrayItemActions
+{
+    float:right;
+    margin-top: 14px;
 }
 
 .nestedSortable-list {
@@ -34,22 +90,17 @@ pre {
 .nestedSortable-handle {
     cursor: move;
     display: block;
-    min-height: 38px;
     margin: 5px 0;
     padding: 8px 12px;
-    background: #f8faff;
-    border: 1px solid #dae2ea;
-    color: #7c9eb2;
+    color: #999;
     text-decoration: none;
     font-weight: bold;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+
+    float: left;
+
 }
 .nestedSortable-handle:hover {
-    color: #438eb9;
-    background: #f4f6f7;
-    border-color: #dce2e8;
+    color: #333;
 }
 .nestedSortable-placeholder {
     margin: 5px 0;

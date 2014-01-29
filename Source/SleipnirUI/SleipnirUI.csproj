@@ -58,17 +58,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="data.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="scripts\angular-nestedSortable.js" />
-    <Content Include="styles\demo.css" />
-    <Content Include="scripts\demo.js" />
+    <Content Include="styles\bootstrap.min.css" />
+    <Content Include="styles\application.css" />
+    <Content Include="scripts\application.js" />
     <Content Include="templates\demoRenderer.html" />
-    <Content Include="sample2.html" />
+    <Content Include="index.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
