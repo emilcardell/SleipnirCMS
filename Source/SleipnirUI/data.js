@@ -1,30 +1,28 @@
 ﻿{
-    "type":"address",
     "fields":
 	[
 	{
-		"name": "street",
-		"type": "chapter"
+		"name": "Street",
+		"type": "string"
 	},
 	{
-		"name": "city",
-		"type": "chapter"
+		"name": "City",
+		"type": "string"
 	},
 	{
 		"name": "Duck",
 		"type": "object",
 		"fields" : [
-			{ "name" : "NumberOfDucklings" }
+			{ "name" : "Rase" },
+			{ "name" : "Gender" }
 		]
 },
 	{
 		"name": "listOfCoolThings",
 		"type": "array",
 		"objectName": "Person",
-		"requiered": true,
-		"defaultValue": "LasseMaja",
-        "fields": [
-                 { "name":"Firsname" },
+		"fields": [
+                 { "name":"Firstname" },
                  { "name":"Lastname" },
 				{
 					"name": "Siblings",

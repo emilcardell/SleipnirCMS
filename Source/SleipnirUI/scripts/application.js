@@ -1,6 +1,52 @@
 var app = angular.module('nestedSortableDemoApp', [
-	'ui.nestedSortable', 'ui.bootstrap'
+	'ui.nestedSortable', 'ui.bootstrap', 'ngRoute'
 ]);
+
+app.config(['$routeProvider',
+  function ($routeProvider) {
+  	$routeProvider.
+      when('/', {
+      	templateUrl: '/templates/dashboard.html',
+      	controller: 'DashboardController'
+      }).
+	  when('/edit/:serverId', {
+		 	templateUrl: 'templates/server.html',
+		 	controller: 'ServerController'
+		 }).
+      when('/edit/:serverId/:siteId/', {
+      	templateUrl: 'templates/site.html',
+      	controller: 'SiteController'
+      }).
+	when('/edit/:serverId/:siteId/:documentId', {
+			templateUrl: 'templates/document.html',
+			controller: 'DocumentController'
+	}).
+		when('/edit/:serverId/:siteId/:documentId/:versionId', {
+			templateUrl: 'templates/document.html',
+			controller: 'DocumentController'
+		}).
+      otherwise({
+      	redirectTo: '/'
+      });
+  }]);
+
+
+
+app.controller('DashboardController', function ($scope) {
+
+});
+
+app.controller('ServerController', function ($scope) {
+
+});
+
+app.controller('SiteController', function ($scope) {
+
+});
+
+app.controller('DocumentController', function ($scope) {
+
+});
 
 app.controller('fieldsRenderController', function ($scope, $http) {
 	
@@ -51,28 +97,40 @@ app.controller('fieldsRenderController', function ($scope, $http) {
 		},
 		
 	};	
-
+	
 });
 
-app.controller('navigationController', function ($scope, $http) {
+app.controller('navigationController', function ($scope, $http, $location) {
 
     
     $http.get('/servers.js').then(function (servers) {
         $scope.Servers = servers.data;
     });
 
-    $scope.SelectedServer = { Name: "No server selected" }
+	$scope.SelectedServer = { Name: "No server selected" };
 
-    $scope.SelectServer = function (server) {
+	$scope.SelectServer = function (server) {
+		if ($scope.SelectServer === server) {
+			return;
+		}
+
         $scope.SelectedServer = server;
         $scope.Sites = server.Sites;
+        $location.path('/edit/' + server.Id);
+        
+	};
+
+	$scope.SelectedSite = { Name: "No server selected" };
+
+	$scope.SelectSite = function (site) {
+		if ($scope.SelectedSite === site) {
+			return;
+		}
+		$scope.SelectedSite = site;
+		$location.path('/edit/' + $scope.SelectedServer.Id + "/" + $scope.SelectedSite.Id);
+
     };
 
-    $scope.SelectedSite = { Name: "No server selected" }
-
-    $scope.SelectSite = function (site) {
-        $scope.SelectedSite = site;
-    };
 
 });
 

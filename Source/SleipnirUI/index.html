@@ -38,7 +38,7 @@
                         <a class="dropdown-toggle" href="#">{{SelectedServer.Name}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li ng-repeat="server in Servers">
-                                <a href="#" ng-click="SelectServer(server)">{{server.Name}}</a>
+                                <a ng-click="SelectServer(server)">{{server.Name}}</a>
                             </li>
                         </ul>
                     </li>
@@ -47,7 +47,7 @@
                         <a class="dropdown-toggle" href="#">{{SelectedSite.Name}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li ng-repeat="site in Sites">
-                                <a href="#" ng-click="SelectSite(site)">{{site.Name}}</a>
+                                <a ng-click="SelectSite(site)">{{site.Name}}</a>
                             </li>
                         </ul>
                     </li>
@@ -62,30 +62,34 @@
         </div>
     </div>
 
-    <div class="container">
+	<div class="container">
+		
+		<div class="container" ng-view></div>
 
-        <div class="container" ng-controller="fieldsRenderController">
-            <h2>Key</h2>
+		<div class="container" ng-controller="fieldsRenderController">
+			<h2>Key</h2>
 
-            <form class="form-horizontal" role="form">
-                <div ng-repeat="field in Fields" ng-include="'/templates/fieldRenderer.html'" class="form-group">
-                </div>
-            </form>
+			<form class="form-horizontal" role="form">
+				<div ng-repeat="field in Fields" ng-include="'/templates/fieldRenderer.html'" class="form-group">
+				</div>
+			</form>
 
-            <div>
-                <div class="info">
-                    {{info}}
-                </div>
-                <pre class="code">{{ Fields | json }}</pre>
-            </div>
+			<div>
+				<div class="info">
+					{{info}}
+				</div>
+				<pre class="code">{{ Fields | json }}</pre>
+			</div>
 
 
-        </div>
+		</div>
 
-    </div> <!-- /container -->
+	</div> <!-- /container -->
 
-    <script data-require="angular.js@*" data-semver="1.2.9" src="http://code.angularjs.org/1.2.9/angular.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/sugar/1.3.9/sugar.min.js"></script>    
+	<script data-require="angular.js@*" data-semver="1.2.9" src="http://code.angularjs.org/1.2.9/angular.js"></script>
+	<script data-require="angular-route.js@*" data-semver="1.2.9" src="http://code.angularjs.org/1.2.9/angular-route.js"></script>
+	
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/sugar/1.3.9/sugar.min.js"></script>    
     <script type="text/javascript" src="/scripts/ui-bootstrap-tpls-0.10.0.min.js"></script>    
     <script type="text/javascript" src="/scripts/angular-nestedSortable.js"></script>
     <script type="text/javascript" src="/scripts/application.js"></script>
