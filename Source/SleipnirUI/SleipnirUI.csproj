@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="data.js" />
+    <Content Include="documents.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="scripts\angular-nestedSortable.js" />
     <Content Include="scripts\ui-bootstrap-tpls-0.10.0.min.js" />

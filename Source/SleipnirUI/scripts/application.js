@@ -40,15 +40,30 @@ app.controller('ServerController', function ($scope) {
 
 });
 
-app.controller('SiteController', function ($scope) {
+app.controller('SiteController', function ($scope, $http, $location) {
+	$scope.SearchDocuments = function () {
+		console.log($scope.SearchTerm);
 
+		$scope.SearchResult = [];
+
+		$http.get('/documents.js').then(function (r) {
+			var listOfDocuments = r.data;
+			$scope.SearchResult = listOfDocuments.findAll(function(document) {
+				console.log(document.Id.startsWith($scope.SearchTerm, 0, false));
+				return document.Id.startsWith($scope.SearchTerm, 0, false);
+			});
+
+			console.log($scope.SearchResult);
+		});
+	};
+	
+	$scope.GoToDocument = function(document) {
+		$location.path($location.path() + document.Id);
+	};
 });
 
-app.controller('DocumentController', function ($scope) {
 
-});
-
-app.controller('fieldsRenderController', function ($scope, $http) {
+app.controller('DocumentController', function ($scope, $http) {
 	
 	$http.get('/data.js').then(function (r) {
 	    var dataToRender = r.data;
@@ -102,9 +117,25 @@ app.controller('fieldsRenderController', function ($scope, $http) {
 
 app.controller('navigationController', function ($scope, $http, $location) {
 
-    
-    $http.get('/servers.js').then(function (servers) {
-        $scope.Servers = servers.data;
+	$http.get('/servers.js').then(function (servers) {
+    	$scope.Servers = servers.data;
+	    var pathValues = $location.path().split('/');
+    	
+		
+
+    	var selectedServer = $scope.Servers.find(function (server) { return server.Id == pathValues[2]; });
+		if (selectedServer) {
+			$scope.SelectedServer = selectedServer;
+			$scope.Sites = selectedServer.Sites;
+
+			var selectedSite = $scope.Sites.find(function (server) { return server.Id == pathValues[3]; });
+			if (selectedSite) {
+				$scope.SelectedSite = selectedSite;
+			}
+			
+		}
+    	
+
     });
 
 	$scope.SelectedServer = { Name: "No server selected" };
