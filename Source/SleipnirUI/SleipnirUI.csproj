@@ -72,6 +72,7 @@
     <Content Include="index.html" />
     <Content Include="templates\server.html" />
     <Content Include="templates\site.html" />
+    <Content Include="values.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

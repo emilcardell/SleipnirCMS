@@ -1,17 +1,43 @@
-﻿		<div class="container">
-			<h2>Documentname</h2>
+﻿<div class="well clearfix">
+    <div class="pull-left">
+        <button class="btn btn-sm btn-success" ng-click="PublishDocument()">Publish</button>
+        <button class="btn btn-sm btn-success">Timed publish</button>
+        <button class="btn btn-sm btn-warning">Discard changes</button>
+        <button class="btn btn-sm btn-danger">Delete</button>
+    </div>
 
-			<form class="form-horizontal" role="form">
-				<div ng-repeat="field in Fields" ng-include="'/templates/fieldRenderer.html'" class="form-group">
-				</div>
-			</form>
+    <div class="pull-right">
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                Current version <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu pull-right">
+                <li>NiHow</li>
+                <li>Minkus</li>
+            </ul>
+        </div>
 
-			<div>
-				<div class="info">
-					{{info}}
-				</div>
-				<pre class="code">{{ Fields | json }}</pre>
-			</div>
+    </div>
 
 
+</div>	
+
+
+
+<div class="container">
+	<h2>Documentname</h2>
+
+	<form class="form-horizontal" role="form">
+		<div ng-repeat="field in Fields" ng-include="'/templates/fieldRenderer.html'" class="form-group">
 		</div>
+	</form>
+
+	<div>
+		<div class="info">
+			{{info}}
+		</div>
+				
+	</div>
+
+
+</div>

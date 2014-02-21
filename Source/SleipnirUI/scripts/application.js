@@ -65,12 +65,118 @@ app.controller('SiteController', function ($scope, $http, $location) {
 
 app.controller('DocumentController', function ($scope, $http) {
 	
+    var getResultingStructure = function (fields) {
+        var resultingStructure = {};
+
+        fields.forEach(function (field) {
+            var result = getFieldKeyValue(field, resultingStructure);
+            if (result) {
+                resultingStructure[field.name] = result;
+            }
+        });
+
+        return resultingStructure;
+    };
+
+    var getFieldKeyValue = function (field, result) {
+        if (field.type == 'array') {
+            if (!field.rows)
+                return;
+
+            var arrayValue = [];
+            field.rows.forEach(function (row) {
+                var rowValues = {};
+
+                row.forEach(function (rowField) {
+                    var result = getFieldKeyValue(rowField, result);
+                    if (result) {
+                        var resultWithName = {};
+                        rowValues[rowField.name] = result;
+                        
+                    }
+                });
+
+                arrayValue.push(rowValues);
+            });
+
+            return arrayValue;
+        }
+        else if(field.type == 'object')
+        {
+            var objResult = {};
+            field.fields.forEach(function (objField) {
+                var result = getFieldKeyValue(objField, result);
+                objResult[objField.name] = result;
+            });
+
+            return objResult;
+        }
+        else {
+            if (!field.value) {
+                return;
+            }
+            return field.value;
+        }
+    };
+
+
+    $scope.PublishDocument = function () {
+        console.log(getResultingStructure($scope.Fields));  
+    };
+
 	$http.get('/data.js').then(function (r) {
-	    var dataToRender = r.data;
+	    console.log('Loading data');
+        var dataToRender = r.data;
+        var fieldsToRender = r.data.fields;
+
+        $http.get('/values.js').then(function (s) {
+            var values = s.data;
+            fieldsToRender.forEach(function (field) {
+                console.log(field.name);
+                console.log(values);
+                setValueToField(field, values[field.name]);
+            });
+        });
 
 
-		$scope.Fields = dataToRender.fields;
+        $scope.Fields = fieldsToRender;
 	});
+
+	var setValueToField = function (field, value) {
+	    console.log(field.name);
+	    console.log(value);
+	    if (!value) {
+	        return;
+	    }
+
+	    if (field.type == 'array') {
+	        var resultingValue = [];
+	       field.rows = [];	                   
+
+	        value.forEach(function (valueItem) {
+	            var rowFields = [];
+	            field.fields.forEach(function (rowField) {
+	                var entryToAdd = angular.copy(rowField);
+	                setValueToField(entryToAdd, valueItem[entryToAdd.name]);
+	                rowFields.push(entryToAdd);
+	            });
+
+	            field.rows.push(rowFields);	            
+	        });                      
+	        
+	    }
+	    else if (field.type == 'object')
+	    {
+	        console.log("In object");
+	        field.fields.forEach(function (objField) {
+	            setValueToField(objField, value[objField.name]);
+	            
+	        });
+	    }
+	    else {
+	        field.value = value;
+	    }
+	};
 
 	$scope.AddRow = function (field) {
 		if(!field.rows) {

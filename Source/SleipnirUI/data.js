@@ -10,11 +10,11 @@
 		"type": "string"
 	},
 	{
-		"name": "Duck",
+		"name": "Land",
 		"type": "object",
 		"fields" : [
-			{ "name" : "Rase" },
-			{ "name" : "Gender" }
+			{ "name" : "invanare" },
+			{ "name" : "nationalratt" }
 		]
 },
 	{
@@ -30,7 +30,18 @@
 					"objectName": "Sibling",
 					"fields": [
 							 { "name":"Firsname" },
-							 { "name":"Lastname" }
+							 { "name":"Lastname" },
+							 {
+							 	"name": "Pets",
+							 	"type": "array",
+							 	"objectName": "Dog",
+							 	"requiered": true,
+							 	"defaultValue": "LasseMaja",
+							 	"fields": [
+										 { "name":"Name" }
+							 	]
+
+							 }
 						 ]
 				}
             ]
